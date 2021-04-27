@@ -1,0 +1,13 @@
+Project Plan And Design
+
+Brief:
+
+=== Basic Order of Operations ==
+0) User pastes of relevant section of text into a text file.
+1) Console application reads the text file line by line.
+2) For each line, extract the relevant segment of text by stripping away unnecessary details.
+3) Take the extracted segment and combine it with the other required part to form a usable URL.
+4) Return a new text file.
+
+=== Minimum Functions ===
+
