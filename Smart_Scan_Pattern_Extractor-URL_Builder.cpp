@@ -4,6 +4,9 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <iomanip>
+#include <ctime>
+#include <chrono>
 
 static std::string first_section = "http://osce14-p.activeupdate.trendmicro.com/activeupdate/";
 
@@ -28,6 +31,15 @@ void handle_text_file()
     // ifstream vs ofstream
     std::ofstream out("output.txt");
     // TODO: Print time/date in first line of "output.txt" file here.
+    // === Requires better understanding here === 
+    // https://stackoverflow.com/questions/62226043/how-to-get-the-current-time-in-c-in-a-safe-way
+    auto start = std::chrono::system_clock::now();
+    auto legacyStart = std::chrono::system_clock::to_time_t(start);
+    char tmBuff[30];
+    ctime_s(tmBuff, sizeof(tmBuff), &legacyStart);
+    std::cout << tmBuff << '\n';
+    // ========= 
+    out << "URLS Extracted on " << tmBuff << "\n";
     std::ifstream myfile;
     myfile.open("toread.txt");
     std::string str;
@@ -51,7 +63,11 @@ void handle_text_file()
 
 int main()
 {
-    std::cout << "[=] << Begin >>" << "\n\n";
+    std::cout << "=======================================" << "\n";
+    std::cout << "Welcome to the Smart_Scan_Pattern_Extractor-URL_Builder console application" << "\n";
+    std::cout << "Created By: Anthony" << "\n";
+    std::cout << "=======================================" << "\n\n";
+    std::cout << "Prerequisites: 1) Smart Scan Patterns from Trend Micro has been copied to ""toread.text"" Examples: Lines containing pattern/icrc/ioth_XXXXXXX" << "\n\n";
     handle_text_file();
 }
 
