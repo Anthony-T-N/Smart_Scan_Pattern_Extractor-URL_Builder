@@ -4,9 +4,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <iomanip>
-#include <ctime>
 #include <chrono>
+#include <filesystem>
 
 static std::string first_section = "http://osce14-p.activeupdate.trendmicro.com/activeupdate/";
 
@@ -27,9 +26,15 @@ std::string url_builder(std::string extracted_string)
 
 void handle_text_file()
 {
+    // Function uses: <iostream>, <fstream>, <string>, <chrono>
+
     // https://stackoverflow.com/questions/13035674/how-to-read-line-by-line-or-a-whole-text-file-at-once
     // ifstream vs ofstream
-    std::ofstream out("output.txt");
+    // ofsteam represents output fle stream.
+    std::cout << "[!] Creating output.txt;" << "\n";
+    std::ofstream output_file;
+    output_file.open("output.txt");
+    std::cout << "[+] Created output.txt successfully;" << "\n\n";
     // TODO: Print time/date in first line of "output.txt" file here.
     // === Requires better understanding here === 
     // https://stackoverflow.com/questions/62226043/how-to-get-the-current-time-in-c-in-a-safe-way
@@ -39,26 +44,27 @@ void handle_text_file()
     ctime_s(tmBuff, sizeof(tmBuff), &legacyStart);
     std::cout << tmBuff << '\n';
     // ========= 
-    out << "URLS Extracted on " << tmBuff << "\n";
-    std::ifstream myfile;
-    myfile.open("toread.txt");
+    output_file << "URLS Extracted on " << tmBuff << "\n";
+    // ifstream represents input file stream.
+    std::ifstream URL_input_file;
+    URL_input_file.open("toread.txt");
     std::string str;
-    while (std::getline(myfile, str))
+    while (std::getline(URL_input_file, str))
     {
         //std::cout << str << "\n";
         if (str.find("MergeCountEx") != std::string::npos)
         {
-            std::cout << "[=] MergeCountEx Found" << "\n";
+            std::cout << "[!] MergeCountEx Found;" << "\n";
             continue;
         }
         std::string extracted_string = url_builder(str);
         std::cout << extracted_string << "\n";
-        out << extracted_string << "\n";
+        output_file << extracted_string << "\n";
         std::cout << sig_builder(extracted_string) << "\n\n";
-        out << sig_builder(extracted_string) << "\n\n";
+        output_file << sig_builder(extracted_string) << "\n\n";
     }
-    out.close();
-    myfile.close();
+    output_file.close();
+    URL_input_file.close();
 }
 
 int main()
@@ -67,6 +73,8 @@ int main()
     std::cout << "Welcome to the Smart_Scan_Pattern_Extractor-URL_Builder console application" << "\n";
     std::cout << "Created By: Anthony" << "\n";
     std::cout << "=======================================" << "\n\n";
+    // https://en.cppreference.com/w/cpp/filesystem/current_path
+    std::cout << "Current location of executable: " << std::filesystem::current_path() << "\n\n";
     std::cout << "Prerequisites: 1) Smart Scan Patterns from Trend Micro has been copied to ""toread.text"" Examples: Lines containing pattern/icrc/ioth_XXXXXXX" << "\n\n";
     handle_text_file();
 }
