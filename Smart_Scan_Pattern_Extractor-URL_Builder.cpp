@@ -9,6 +9,11 @@
 
 static std::string first_section = "http://osce14-p.activeupdate.trendmicro.com/activeupdate/";
 
+void extract_serverini_file()
+{
+
+}
+
 std::string sig_builder(std::string extracted_string)
 {
     // Assumes extracted string has been processed by the url_builder(str) function.
@@ -30,6 +35,16 @@ void handle_text_file()
 
     // https://stackoverflow.com/questions/13035674/how-to-read-line-by-line-or-a-whole-text-file-at-once
     // ifstream vs ofstream
+    // ifstream represents input file stream.
+    std::ifstream URL_input_file;
+    std::cout << "[!] Opening toread.txt for reading;" << "\n";
+    if (std::filesystem::exists("toread.txt") == false)
+    {
+        std::cout << "[-] Unable to open toread.txt;" << "\n";
+        return;
+    }
+    URL_input_file.open("toread.txt");
+    std::cout << "[+] Opened toread.txt successfully;" << "\n\n";
     // ofsteam represents output fle stream.
     std::cout << "[!] Creating output.txt;" << "\n";
     std::ofstream output_file;
@@ -43,11 +58,8 @@ void handle_text_file()
     char tmBuff[30];
     ctime_s(tmBuff, sizeof(tmBuff), &legacyStart);
     std::cout << tmBuff << '\n';
-    // ========= 
     output_file << "URLS Extracted on " << tmBuff << "\n";
-    // ifstream represents input file stream.
-    std::ifstream URL_input_file;
-    URL_input_file.open("toread.txt");
+    // ========= 
     std::string str;
     while (std::getline(URL_input_file, str))
     {
@@ -77,6 +89,8 @@ int main()
     std::cout << "Current location of executable: " << std::filesystem::current_path() << "\n\n";
     std::cout << "Prerequisites: 1) Smart Scan Patterns from Trend Micro has been copied to ""toread.text"" Examples: Lines containing pattern/icrc/ioth_XXXXXXX" << "\n\n";
     handle_text_file();
+    std::cout << "END OF PROGRAM" << "\n\n";
+    std::cout << "[!] Exiting..." << "\n\n";
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
