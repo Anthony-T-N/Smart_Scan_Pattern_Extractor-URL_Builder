@@ -11,7 +11,7 @@ static std::string first_section = "http://osce14-p.activeupdate.trendmicro.com/
 
 void extract_serverini_file()
 {
-
+    // To be developed in version 2.
 }
 
 std::string sig_builder(std::string extracted_string)
@@ -50,7 +50,6 @@ void handle_text_file()
     std::ofstream output_file;
     output_file.open("output.txt");
     std::cout << "[+] Created output.txt successfully;" << "\n\n";
-    // TODO: Print time/date in first line of "output.txt" file here.
     // === Requires better understanding here === 
     // https://stackoverflow.com/questions/62226043/how-to-get-the-current-time-in-c-in-a-safe-way
     auto start = std::chrono::system_clock::now();
@@ -58,7 +57,7 @@ void handle_text_file()
     char tmBuff[30];
     ctime_s(tmBuff, sizeof(tmBuff), &legacyStart);
     std::cout << tmBuff << '\n';
-    output_file << "URLS Extracted on " << tmBuff << "\n";
+    output_file << "Smart Scan Pattern(s) URLS Extracted on " << tmBuff << "\n";
     // ========= 
     std::string str;
     while (std::getline(URL_input_file, str))
@@ -66,7 +65,7 @@ void handle_text_file()
         //std::cout << str << "\n";
         if (str.find("MergeCountEx") != std::string::npos)
         {
-            std::cout << "[!] MergeCountEx Found;" << "\n";
+            std::cout << "[!] MergeCountEx Found;" << "\n\n";
             continue;
         }
         std::string extracted_string = url_builder(str);
@@ -82,24 +81,32 @@ void handle_text_file()
 int main()
 {
     std::cout << "=======================================" << "\n";
-    std::cout << "Welcome to the Smart_Scan_Pattern_Extractor-URL_Builder console application" << "\n";
-    std::cout << "Created By: Anthony" << "\n";
-    std::cout << "=======================================" << "\n\n";
+    std::cout << "- Welcome to the Smart_Scan_Pattern_Extractor-URL_Builder console application" << "\n";
+    std::cout << "- Console Application Version: 1.0" << "\n";
+    std::cout << "- Created By: Anthony N." << "\n";
     // https://en.cppreference.com/w/cpp/filesystem/current_path
-    std::cout << "Current location of executable: " << std::filesystem::current_path() << "\n\n";
+    std::cout << "- Current location of executable: " << std::filesystem::current_path() << "\n";
+    std::cout << "=======================================" << "\n\n";
     std::cout << "Prerequisites: 1) Smart Scan Patterns from Trend Micro has been copied to ""toread.text"" Examples: Lines containing pattern/icrc/ioth_XXXXXXX" << "\n\n";
+    if (std::filesystem::exists("output.txt") == true)
+    {
+        char recommence = '!';
+        while (recommence != 'n' || 'y')
+        {
+            std::cout << "[=] output.txt already exist. Continue ? [Y/N]" << "\n";
+            std::cin >> recommence;
+            recommence = tolower(recommence);
+            if (recommence == 'n')
+            {
+                return 0;
+            }
+            else if (recommence == 'y')
+            {
+                break;
+            }
+        }
+    }
     handle_text_file();
-    std::cout << "END OF PROGRAM" << "\n\n";
+    std::cout << "END OF PROGRAM" << "\n";
     std::cout << "[!] Exiting..." << "\n\n";
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
