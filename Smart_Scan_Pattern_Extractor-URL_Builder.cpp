@@ -29,6 +29,25 @@ std::string url_builder(std::string extracted_string)
     return final_string;
 }
 
+std::string get_current_time()
+{
+    // === Requires better understanding here === 
+    // https://stackoverflow.com/questions/62226043/how-to-get-the-current-time-in-c-in-a-safe-way
+    auto start = std::chrono::system_clock::now();
+    auto legacyStart = std::chrono::system_clock::to_time_t(start);
+    char tmBuff[30];
+    ctime_s(tmBuff, sizeof(tmBuff), &legacyStart);
+    // std::cout << tmBuff << '\n';
+    std::string test = "";
+    for (int i = 0; i <= sizeof(tmBuff) - 1; i++)
+    {
+        std::cout << tmBuff[i];
+        test += tmBuff[i];
+    }
+    std::cout << test << "\n\n";
+    return test;
+}
+
 void handle_text_file()
 {
     // Function uses: <iostream>, <fstream>, <string>, <chrono>
@@ -45,20 +64,13 @@ void handle_text_file()
     }
     URL_input_file.open("toread.txt");
     std::cout << "[+] Opened toread.txt successfully;" << "\n\n";
-    // ofsteam represents output fle stream.
+    
+    // ofstream represents output fle stream.
     std::cout << "[!] Creating output.txt;" << "\n";
     std::ofstream output_file;
     output_file.open("output.txt");
     std::cout << "[+] Created output.txt successfully;" << "\n\n";
-    // === Requires better understanding here === 
-    // https://stackoverflow.com/questions/62226043/how-to-get-the-current-time-in-c-in-a-safe-way
-    auto start = std::chrono::system_clock::now();
-    auto legacyStart = std::chrono::system_clock::to_time_t(start);
-    char tmBuff[30];
-    ctime_s(tmBuff, sizeof(tmBuff), &legacyStart);
-    std::cout << tmBuff << '\n';
-    output_file << "Smart Scan Pattern(s) URLS Extracted on " << tmBuff << "\n";
-    // ========= 
+    output_file << "Smart Scan Pattern(s) URLS Extracted on " << get_current_time() << "\n";
     std::string str;
     while (std::getline(URL_input_file, str))
     {
@@ -91,7 +103,7 @@ int main()
     if (std::filesystem::exists("output.txt") == true)
     {
         char recommence = '!';
-        while (recommence != 'n' || 'y')
+        while (recommence != 'n' || recommence != 'y')
         {
             std::cout << "[=] output.txt already exist. Continue ? [Y/N]" << "\n";
             std::cin >> recommence;
