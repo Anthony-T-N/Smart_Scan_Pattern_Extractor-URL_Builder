@@ -4,3 +4,7 @@
 ![support](https://img.shields.io/badge/OS-Windows-orange.svg)
 
 # Smart_Scan_Pattern_Extractor-URL_Builder
+
+Overview
+-
+Console application used to assist with constructing URLs that are used to download "Smart Scan Patterns" from Trend Micro.
