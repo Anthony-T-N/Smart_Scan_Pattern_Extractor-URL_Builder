@@ -8,3 +8,9 @@
 Overview
 -
 Console application used to assist with constructing URLs that are used to download "Smart Scan Patterns" from Trend Micro.
+
+How It Works
+-
+
+Usage Overview
+-
