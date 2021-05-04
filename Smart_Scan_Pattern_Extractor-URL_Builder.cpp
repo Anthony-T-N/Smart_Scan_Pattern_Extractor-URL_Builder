@@ -13,14 +13,12 @@ void extract_serverini_file()
 {
     // To be developed in version 2.
 }
-
 std::string sig_builder(std::string extracted_string)
 {
     // Assumes extracted string has been processed by the url_builder(str) function.
     extracted_string.erase(extracted_string.find_last_of(".") + 1);
     return extracted_string + "sig";
 }
-
 std::string url_builder(std::string extracted_string)
 {
     extracted_string.erase(extracted_string.find_first_of(","));
@@ -28,29 +26,20 @@ std::string url_builder(std::string extracted_string)
     std::string final_string = first_section + extracted_string;
     return final_string;
 }
-
 std::string get_current_time()
 {
+    // Function uses: <chrono>
     // === Requires better understanding here === 
     // https://stackoverflow.com/questions/62226043/how-to-get-the-current-time-in-c-in-a-safe-way
     auto start = std::chrono::system_clock::now();
     auto legacyStart = std::chrono::system_clock::to_time_t(start);
     char tmBuff[30];
     ctime_s(tmBuff, sizeof(tmBuff), &legacyStart);
-    // std::cout << tmBuff << '\n';
-    std::string test = "";
-    for (int i = 0; i <= sizeof(tmBuff) - 1; i++)
-    {
-        std::cout << tmBuff[i];
-        test += tmBuff[i];
-    }
-    std::cout << test << "\n\n";
-    return test;
+    return tmBuff;
 }
-
 void handle_text_file()
 {
-    // Function uses: <iostream>, <fstream>, <string>, <chrono>
+    // Function uses: <iostream>, <fstream>, <string>
 
     // https://stackoverflow.com/questions/13035674/how-to-read-line-by-line-or-a-whole-text-file-at-once
     // ifstream vs ofstream
@@ -89,7 +78,6 @@ void handle_text_file()
     output_file.close();
     URL_input_file.close();
 }
-
 int main()
 {
     std::cout << "=======================================" << "\n";
@@ -99,7 +87,7 @@ int main()
     // https://en.cppreference.com/w/cpp/filesystem/current_path
     std::cout << "- Current location of executable: " << std::filesystem::current_path() << "\n";
     std::cout << "=======================================" << "\n\n";
-    std::cout << "Prerequisites: 1) Smart Scan Patterns from Trend Micro has been copied to ""toread.text"" Examples: Lines containing pattern/icrc/ioth_XXXXXXX" << "\n\n";
+    std::cout << "Prerequisites: 1) Smart Scan Patterns from Trend Micro has been copied to ""toread.txt"" Examples: Lines containing pattern/icrc/ioth_XXXXXXX" << "\n\n";
     if (std::filesystem::exists("output.txt") == true)
     {
         char recommence = '!';
@@ -119,6 +107,6 @@ int main()
         }
     }
     handle_text_file();
-    std::cout << "END OF PROGRAM" << "\n";
+    std::cout << "[!] END" << "\n";
     std::cout << "[!] Exiting..." << "\n\n";
 }
