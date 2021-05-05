@@ -60,16 +60,24 @@ void handle_text_file()
     output_file.open("output.txt");
     std::cout << "[+] Created output.txt successfully;" << "\n\n";
     output_file << "Smart Scan Pattern(s) URLS Extracted on " << get_current_time() << "\n";
-    std::string str;
-    while (std::getline(URL_input_file, str))
+    std::string input_file_line;
+    while (std::getline(URL_input_file, input_file_line))
     {
         //std::cout << str << "\n";
-        if (str.find("MergeCountEx") != std::string::npos)
+        // std::string::npos = Not found
+        if (input_file_line.find("MergeCountEx") != std::string::npos)
         {
             std::cout << "[!] MergeCountEx Found;" << "\n\n";
             continue;
         }
-        std::string extracted_string = url_builder(str);
+        if (input_file_line.find("=") == std::string::npos && input_file_line.find(".") == std::string::npos)
+        {
+            std::cout << "[!] Invalid Link Found;" << "\n";
+            std::cout << input_file_line << "\n\n";
+            continue;
+        }
+        std::cout << input_file_line << "\n\n";
+        std::string extracted_string = url_builder(input_file_line);
         std::cout << extracted_string << "\n";
         output_file << extracted_string << "\n";
         std::cout << sig_builder(extracted_string) << "\n\n";
@@ -87,7 +95,7 @@ int main()
     // https://en.cppreference.com/w/cpp/filesystem/current_path
     std::cout << "- Current location of executable: " << std::filesystem::current_path() << "\n";
     std::cout << "=======================================" << "\n\n";
-    std::cout << "Prerequisites: 1) Smart Scan Patterns from Trend Micro has been copied to ""toread.txt"" Examples: Lines containing pattern/icrc/ioth_XXXXXXX" << "\n\n";
+    std::cout << "Prerequisites: 1) Smart Scan Patterns from Trend Micro have been copied to a ""toread.txt"" file in the same folder directory. Examples: Lines containing pattern/icrc/ioth_XXXXXXX" << "\n\n";
     if (std::filesystem::exists("output.txt") == true)
     {
         char recommence = '!';
