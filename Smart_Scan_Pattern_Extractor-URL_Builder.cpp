@@ -76,6 +76,19 @@ void handle_text_file()
             std::cout << input_file_line << "\n\n";
             continue;
         }
+        else
+        {
+            if (input_file_line.find("=") == std::string::npos)
+            {
+                std::cout << "= not found" << "\n\n";
+            }
+            if (input_file_line.find(".") == std::string::npos)
+            {
+                std::cout << ". not found" << "\n\n";
+            }
+            std::cout << input_file_line << "\n\n";
+            std::cin.get();
+        }
         std::cout << input_file_line << "\n\n";
         std::string extracted_string = url_builder(input_file_line);
         std::cout << extracted_string << "\n";
