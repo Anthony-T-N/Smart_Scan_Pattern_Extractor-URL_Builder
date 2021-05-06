@@ -11,6 +11,16 @@ Console application used to assist with constructing URLs that are used to downl
 
 How It Works
 -
+Version 1
+
+
+Version 2
+
+
 
 Usage Overview
 -
+Version 1
+
+
+Version 2
