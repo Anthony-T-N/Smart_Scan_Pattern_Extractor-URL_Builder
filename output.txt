@@ -1,47 +1,47 @@
-URLS Extracted on Fri Apr 30 21:30:24 2021
+Smart Scan Pattern(s) URLS Extracted on Thu May  6 21:19:36 2021
 
-http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth1668300.zip
-http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth1668300.sig
+http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth1669900.zip
+http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth1669900.sig
 
-http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1668100.1668300
+http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1669700.1669900
+http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1669700.sig
+
+http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1669500.1669900
+http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1669500.sig
+
+http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1669300.1669900
+http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1669300.sig
+
+http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1669100.1669900
+http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1669100.sig
+
+http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1668900.1669900
+http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1668900.sig
+
+http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1668700.1669900
+http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1668700.sig
+
+http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1668500.1669900
+http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1668500.sig
+
+http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1668300.1669900
+http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1668300.sig
+
+http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1668100.1669900
 http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1668100.sig
 
-http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1667900.1668300
+http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1667900.1669900
 http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1667900.sig
 
-http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1667700.1668300
+http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1667700.1669900
 http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1667700.sig
 
-http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1667500.1668300
+http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1667500.1669900
 http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1667500.sig
 
-http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1667300.1668300
+http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1667300.1669900
 http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1667300.sig
 
-http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1667100.1668300
+http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1667100.1669900
 http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1667100.sig
-
-http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1666900.1668300
-http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1666900.sig
-
-http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1666700.1668300
-http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1666700.sig
-
-http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1666500.1668300
-http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1666500.sig
-
-http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1666300.1668300
-http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1666300.sig
-
-http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1666100.1668300
-http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1666100.sig
-
-http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1665900.1668300
-http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1665900.sig
-
-http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1665700.1668300
-http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1665700.sig
-
-http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1665500.1668300
-http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ioth_1665500.sig
 
