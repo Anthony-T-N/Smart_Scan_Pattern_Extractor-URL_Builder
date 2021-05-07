@@ -70,33 +70,12 @@ void handle_text_file()
             std::cout << "[!] MergeCountEx Found;" << "\n\n";
             continue;
         }
-        if (input_file_line.find("=") != std::string::npos && input_file_line.find(".") != std::string::npos)
-        {
-            std::cout << "Cool" << "\n\n";
-        }
-        else
+        if (!(input_file_line.find("=") != std::string::npos && input_file_line.find(".") != std::string::npos))
         {
             std::cout << "[!] Invalid Link Found;" << "\n";
             std::cout << input_file_line << "\n\n";
             continue;
         }
-        /*
-        else
-        {
-            if (input_file_line.find("=") == std::string::npos)
-            {
-                std::cout << "= not found" << "\n\n";
-            }
-            if (input_file_line.find(".") == std::string::npos)
-            {
-                std::cout << ". not found" << "\n\n";
-            }
-            std::cout << input_file_line << "\n\n";
-            std::cin.get();
-        }
-        */
-
-        std::cout << input_file_line << "\n\n";
         std::string extracted_string = url_builder(input_file_line);
         std::cout << extracted_string << "\n";
         output_file << extracted_string << "\n";
@@ -137,4 +116,7 @@ int main()
     handle_text_file();
     std::cout << "[!] END" << "\n";
     std::cout << "[!] Exiting..." << "\n\n";
+    // "System("Pause") was added as the console application would exit immediately if "toread.txt" wasn't found.
+    system("pause");
+    return 0;
 }
