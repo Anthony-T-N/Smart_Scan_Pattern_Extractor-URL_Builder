@@ -6,6 +6,7 @@
 #include <string>
 #include <chrono>
 #include <filesystem>
+#include "version_2.h"
 
 static std::string first_section = "http://osce14-p.activeupdate.trendmicro.com/activeupdate/";
 
@@ -15,12 +16,14 @@ void extract_serverini_file()
 }
 std::string sig_builder(std::string extracted_string)
 {
+    // Function uses: <string>
     // Assumes extracted string has been processed by the url_builder(str) function.
     extracted_string.erase(extracted_string.find_last_of(".") + 1);
     return extracted_string + "sig";
 }
 std::string url_builder(std::string extracted_string)
 {
+    // Function uses: <string>
     extracted_string.erase(extracted_string.find_first_of(","));
     extracted_string.erase(0, extracted_string.find_first_of("=") + 1);
     std::string final_string = first_section + extracted_string;
@@ -89,12 +92,16 @@ int main()
 {
     std::cout << "=======================================" << "\n";
     std::cout << "- Welcome to the Smart_Scan_Pattern_Extractor-URL_Builder console application" << "\n";
-    std::cout << "- Console Application Version: 1.0" << "\n";
+    std::cout << "- Console Application Version: 2.0" << "\n";
     std::cout << "- Created By: Anthony N." << "\n";
     // https://en.cppreference.com/w/cpp/filesystem/current_path
     std::cout << "- Current location of executable: " << std::filesystem::current_path() << "\n";
     std::cout << "=======================================" << "\n\n";
     std::cout << "Prerequisites: 1) Smart Scan Patterns from Trend Micro have been copied to a ""toread.txt"" file in the same folder directory. Examples: Lines containing pattern/icrc/ioth_XXXXXXX" << "\n\n";
+    testing();
+    testing();
+    testing();
+    testing();
     if (std::filesystem::exists("output.txt") == true)
     {
         char recommence = '!';
