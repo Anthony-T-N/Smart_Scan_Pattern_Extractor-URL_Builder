@@ -2,6 +2,8 @@ Project Plan And Design
 
 Brief: Console application used to assist with constructing URLs used to download "Smart Scan Patterns" from Trend Micro.
 
+[Version 1]
+
 === Basic Order of Operations ==
 0) User copies relevant section of text into a text file (toread.txt).
 1) Console application reads the text file line by line.
@@ -13,9 +15,11 @@ Brief: Console application used to assist with constructing URLs used to downloa
 [+] Read a text file.
 [+] Output a new text file containing usable URLs.
 [+] Strip excess details around the required segment.
-- Display informative background details before console application runs.
+[+] Display informative background details before console application runs.
 
-=== Features / Additions ===
+[Version 2]
+
+=== Minimum Functions ===
 - Open a web browser and individually access each contructed URL and download the relevant files.
 - Automatically create the necessary folders with appropriate names. Then store downloaded files into them.
 - Root folder should be named the current date (YYYY-MM-DD).
