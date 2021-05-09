@@ -2,5 +2,6 @@
 #define VERSION_2_H
 
 void testing();
+int magic();
 
 #endif
