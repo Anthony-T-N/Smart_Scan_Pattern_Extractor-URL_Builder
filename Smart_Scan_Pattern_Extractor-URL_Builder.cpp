@@ -10,10 +10,6 @@
 
 static std::string first_section = "http://osce14-p.activeupdate.trendmicro.com/activeupdate/";
 
-void extract_serverini_file()
-{
-    // To be developed in version 2.
-}
 std::string sig_builder(std::string extracted_string)
 {
     // Function uses: <string>
@@ -98,6 +94,8 @@ int main()
     std::cout << "- Current location of executable: " << std::filesystem::current_path() << "\n";
     std::cout << "=======================================" << "\n\n";
     std::cout << "Prerequisites: 1) Smart Scan Patterns from Trend Micro have been copied to a ""toread.txt"" file in the same folder directory. Examples: Lines containing pattern/icrc/ioth_XXXXXXX" << "\n\n";
+    magic();
+    return 0;
     testing();
     testing();
     testing();
