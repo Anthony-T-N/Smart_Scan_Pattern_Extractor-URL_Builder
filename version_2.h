@@ -2,6 +2,6 @@
 #define VERSION_2_H
 
 void testing();
-int magic();
+int extract_serverini_file();
 
 #endif
