@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <curl/curl.h>
 #include "version_2.h" 
+#include <filesystem>
 
 // https://stackoverflow.com/questions/21873048/getting-an-error-fopen-this-function-or-variable-may-be-unsafe-when-complin/21873153
 #pragma warning(disable:4996);
@@ -22,10 +23,18 @@ int extract_serverini_file()
     FILE* fp;
     CURLcode res;
     const char* url = "http://osce14-p.activeupdate.trendmicro.com/activeupdate/server.ini";
-    /* Warning, there is an issue with the line below that has wasted 3 hours of my day. Work out the issue and never repeat again.
+    // Warning, there is an issue with the line below that has wasted 3 hours of my day. Work out the issue and never repeat again.
     // char outfilename[FILENAME_MAX] = "C:\\Users\\Anthony\\source\\repos\\Smart_Scan_Pattern_Extractor - URL_Builder\\abc.txt";
-    */
-    char outfilename[FILENAME_MAX] = "I:\\123\\abc.txt";
+    
+    std::string inifile = std::filesystem::current_path().string() + "\\abc.txt";
+    std::cout << inifile << "\n";
+    char outfilename[FILENAME_MAX];
+    // https://stackoverflow.com/questions/41915130/initializing-an-array-of-characters-with-a-string-variable
+    strcpy(outfilename, inifile.c_str());
+    std::cout << outfilename << "\n";
+    std::cout << "EDN" << "\n";
+    system("pause");
+    return 0;
     curl = curl_easy_init();
     if (curl)
     {
@@ -45,9 +54,4 @@ int extract_serverini_file()
         fclose(fp);
     }
     return 0;
-}
-
-void testing()
-{
-	std::cout << "HELLO WORLD" << "\n\n";
 }
