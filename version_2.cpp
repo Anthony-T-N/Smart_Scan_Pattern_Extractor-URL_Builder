@@ -8,8 +8,6 @@
 #include "version_2.h" 
 #include <filesystem>
 
-void comment_server_section();
-
 // https://stackoverflow.com/questions/21873048/getting-an-error-fopen-this-function-or-variable-may-be-unsafe-when-complin/21873153
 #pragma warning(disable:4996);
 
@@ -52,7 +50,6 @@ int extract_serverini_file()
         curl_easy_cleanup(curl);
         fclose(fp);
     }
-    comment_server_section();
     return 0;
 }
 
@@ -88,7 +85,11 @@ void comment_server_section()
             std::cout << input_file_line << "\n\n";
             commenting_enabled = true;
         }
-        // Section here to end commenting.
+        // Continue to comment [Server] section until empty space is located.
+        if (commenting_enabled == true && input_file_line == "")
+        {
+            commenting_enabled = false;
+        }
         if (commenting_enabled == true)
         {
             input_file_line = ";" + input_file_line;
@@ -98,5 +99,4 @@ void comment_server_section()
     }
     input_file.close();
     output_file.close();
-
 }
