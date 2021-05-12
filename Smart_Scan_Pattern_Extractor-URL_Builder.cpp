@@ -95,11 +95,8 @@ int main()
     std::cout << "=======================================" << "\n\n";
     std::cout << "Prerequisites: 1) Smart Scan Patterns from Trend Micro have been copied to a ""toread.txt"" file in the same folder directory. Examples: Lines containing pattern/icrc/ioth_XXXXXXX" << "\n\n";
     extract_serverini_file();
+    comment_server_section();
     return 0;
-    testing();
-    testing();
-    testing();
-    testing();
     if (std::filesystem::exists("output.txt") == true)
     {
         char recommence = '!';
