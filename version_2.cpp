@@ -7,6 +7,7 @@
 #include <curl/curl.h>
 #include "version_2.h" 
 #include <filesystem>
+#include <chrono>
 
 // https://stackoverflow.com/questions/21873048/getting-an-error-fopen-this-function-or-variable-may-be-unsafe-when-complin/21873153
 #pragma warning(disable:4996);
@@ -27,7 +28,7 @@ int extract_serverini_file()
     // Warning, there is an issue with the line below that has wasted 3 hours of my day. Work out the issue and never repeat again.
     // char outfilename[FILENAME_MAX] = "C:\\Users\\Anthony\\source\\repos\\Smart_Scan_Pattern_Extractor - URL_Builder\\abc.txt";
     
-    std::string inifile = std::filesystem::current_path().string() + "\\server.ini";
+    std::string inifile = std::filesystem::current_path().string() + "\\temp.ini";
     char outfilename[FILENAME_MAX];
     // https://stackoverflow.com/questions/41915130/initializing-an-array-of-characters-with-a-string-variable
     strcpy(outfilename, inifile.c_str());
@@ -55,24 +56,19 @@ int extract_serverini_file()
 
 void comment_server_section()
 {
-    // TODO:
-    // - Open server.ini file and prepare for reading.
-    // - Comment out [Server] section of file and stop at next empty line.
-    // - Save file once commenting is completed
-
     std::ifstream input_file;
-    std::cout << "[!] Opening server.ini for reading;" << "\n";
-    if (std::filesystem::exists("server.ini") == false)
+    std::cout << "[!] Opening temp.ini for reading;" << "\n";
+    if (std::filesystem::exists("temp.ini") == false)
     {
         std::cout << "[-] Unable to open server.ini;" << "\n";
         return;
     }
-    input_file.open("server.ini");
-    std::cout << "[+] Opened server.ini successfully;" << "\n\n";
+    input_file.open("temp.ini");
+    std::cout << "[+] Opened temp.ini successfully;" << "\n\n";
 
     std::ofstream output_file;
-    output_file.open("temp.txt");
-    std::cout << "[+] Created temp.txt successfully;" << "\n\n";
+    output_file.open("server.ini");
+    std::cout << "[+] Created server.ini successfully;" << "\n\n";
 
     // Cannot edit individual lines of an existing text file. Edited copy will need to be made.
     std::string input_file_line;
@@ -84,6 +80,8 @@ void comment_server_section()
             std::cout << "[+] [Server] Section Found;" << "\n";
             std::cout << input_file_line << "\n\n";
             commenting_enabled = true;
+            output_file << input_file_line << "\n";
+            continue;
         }
         // Continue to comment [Server] section until empty space is located.
         if (commenting_enabled == true && input_file_line == "")
@@ -99,4 +97,13 @@ void comment_server_section()
     }
     input_file.close();
     output_file.close();
+}
+
+void directories_structure()
+{
+    // https://stackoverflow.com/questions/997946/how-to-get-current-time-and-date-in-c
+    std::string root_folder_name
+    auto time = std::time(nullptr);
+    std::cin >> std::put_time(std::gmtime(&time), "%F");
+    std::filesystem::create_directories(root_folder_name + "date/update/pattern/icrc");
 }
