@@ -20,6 +20,8 @@ Brief: Console application used to assist with constructing URLs used to downloa
 [Version 2]
 
 === Minimum Functions ===
-- Open a web browser and individually access each contructed URL and download the relevant files.
+[+] Open a web browser and individually access each contructed URL and download the relevant files.
+[+] Download the server.ini file and comment out the [Server] section of the ini file.
+- Perform clean up (Remove leftover files).
 - Automatically create the necessary folders with appropriate names. Then store downloaded files into them.
 - Root folder should be named the current date (YYYY-MM-DD).
