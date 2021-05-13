@@ -59,6 +59,7 @@ void handle_text_file()
     output_file.open("output.txt");
     std::cout << "[+] Created output.txt successfully;" << "\n\n";
     output_file << "Smart Scan Pattern(s) URLS Extracted on " << get_current_time() << "\n";
+    std::cout << get_current_time() << "\n";
     std::string input_file_line;
     while (std::getline(URL_input_file, input_file_line))
     {
@@ -94,8 +95,9 @@ int main()
     std::cout << "- Current location of executable: " << std::filesystem::current_path() << "\n";
     std::cout << "=======================================" << "\n\n";
     std::cout << "Prerequisites: 1) Smart Scan Patterns from Trend Micro have been copied to a ""toread.txt"" file in the same folder directory. Examples: Lines containing pattern/icrc/ioth_XXXXXXX" << "\n\n";
-    extract_serverini_file();
-    comment_server_section();
+    // extract_serverini_file();
+    // comment_server_section();
+    directories_structure();
     return 0;
     if (std::filesystem::exists("output.txt") == true)
     {
