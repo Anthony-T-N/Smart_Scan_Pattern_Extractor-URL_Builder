@@ -12,6 +12,8 @@
 // https://stackoverflow.com/questions/21873048/getting-an-error-fopen-this-function-or-variable-may-be-unsafe-when-complin/21873153
 #pragma warning(disable:4996);
 
+std::string current_root_folder = ""; 
+
 static size_t write_data(void* ptr, size_t size, size_t nmemb, void* stream)
 {
 	size_t written = fwrite(ptr, size, nmemb, (FILE*)stream);
@@ -56,18 +58,19 @@ int extract_serverini_file()
 
 void comment_server_section()
 {
+    // Function must occur after function directories_structure().
     std::ifstream input_file;
     std::cout << "[!] Opening temp.ini for reading;" << "\n";
     if (std::filesystem::exists("temp.ini") == false)
     {
-        std::cout << "[-] Unable to open server.ini;" << "\n";
+        std::cout << "[-] Unable to open temp.ini;" << "\n";
         return;
     }
     input_file.open("temp.ini");
     std::cout << "[+] Opened temp.ini successfully;" << "\n\n";
 
     std::ofstream output_file;
-    output_file.open("server.ini");
+    output_file.open(current_root_folder + "/server.ini");
     std::cout << "[+] Created server.ini successfully;" << "\n\n";
 
     // Cannot edit individual lines of an existing text file. Edited copy will need to be made.
@@ -101,9 +104,18 @@ void comment_server_section()
 
 void directories_structure()
 {
-    // https://stackoverflow.com/questions/997946/how-to-get-current-time-and-date-in-c
-    std::string root_folder_name
-    auto time = std::time(nullptr);
-    std::cin >> std::put_time(std::gmtime(&time), "%F");
-    std::filesystem::create_directories(root_folder_name + "date/update/pattern/icrc");
+    // https://stackoverflow.com/questions/16357999/current-date-and-time-as-string/16358264
+    time_t rawtime;
+    struct tm* timeinfo;
+    char buffer[80];
+
+    time(&rawtime);
+    timeinfo = localtime(&rawtime);
+
+    strftime(buffer, sizeof(buffer), "%Y-%m-%d", timeinfo);
+    std::cout << buffer << "\n\n";
+    system("pause");
+    std::string root_folder_name(buffer);
+    std::filesystem::create_directories(root_folder_name + "/update/pattern/icrc");
+    current_root_folder = root_folder_name;
 }
