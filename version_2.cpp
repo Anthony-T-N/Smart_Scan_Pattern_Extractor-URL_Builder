@@ -95,7 +95,6 @@ void comment_server_section()
         {
             input_file_line = ";" + input_file_line;
         }
-        std::cout << input_file_line << "\n";
         output_file << input_file_line << "\n";
     }
     input_file.close();
@@ -114,8 +113,52 @@ void directories_structure()
 
     strftime(buffer, sizeof(buffer), "%Y-%m-%d", timeinfo);
     std::cout << buffer << "\n\n";
-    system("pause");
+
     std::string root_folder_name(buffer);
     std::filesystem::create_directories(root_folder_name + "/update/pattern/icrc");
     current_root_folder = root_folder_name;
+}
+
+// https://stackoverflow.com/questions/6951161/downloading-multiple-files-with-libcurl-in-c
+void download_file(const char* url, const char* fname) 
+{
+    CURL* curl;
+    FILE* fp;
+    CURLcode res;
+    curl = curl_easy_init();
+    if (curl) {
+        fp = fopen(fname, "wb");
+        curl_easy_setopt(curl, CURLOPT_URL, url);
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
+        res = curl_easy_perform(curl);
+        curl_easy_cleanup(curl);
+        fclose(fp);
+    }
+}
+
+void icrc_pattern_identification()
+{
+    // Read server.ini file.
+    std::ifstream input_file;
+    std::cout << "[!] Opening server.ini for reading;" << "\n";
+    if (std::filesystem::exists(current_root_folder + "/server.ini") == false)
+    {
+        std::cout << "[-] Unable to open server.ini;" << "\n";
+        return;
+    }
+    input_file.open(current_root_folder + "/server.ini");
+    std::string input_file_line;
+    while (std::getline(input_file, input_file_line))
+    {
+        if (input_file_line.find("icrc") != std::string::npos)
+        {
+            std::cout << input_file_line << "\n\n";
+            // Note: Function carried from main cpp file.
+            std::string extracted_string = url_builder(input_file_line);
+            std::cout << extracted_string << "\n";
+            std::cout << sig_builder(extracted_string) << "\n\n";
+        }
+    }
+    input_file.close();
 }
