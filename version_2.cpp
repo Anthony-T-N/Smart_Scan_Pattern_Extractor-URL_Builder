@@ -137,6 +137,13 @@ void download_file(const char* url, const char* fname)
     }
 }
 
+std::string file_download_name(std::string url_name)
+{
+    url_name.erase(0, url_name.find_last_of("/") + 1);
+    std::cout << url_name << "\n\n";
+    return url_name;
+}
+
 void icrc_pattern_identification()
 {
     // Read server.ini file.
@@ -155,9 +162,11 @@ void icrc_pattern_identification()
         {
             std::cout << input_file_line << "\n\n";
             // Note: Function carried from main cpp file.
-            std::string extracted_string = url_builder(input_file_line);
-            std::cout << extracted_string << "\n";
-            std::cout << sig_builder(extracted_string) << "\n\n";
+            std::string extracted_url = url_builder(input_file_line);
+            std::cout << extracted_url << "\n";
+            // https://stackoverflow.com/questions/9309961/how-to-convert-string-to-char-in-c
+            download_file(strcpy(extracted_url, , current_root_folder + "\\update\\pattern\\icrc\\" + file_download_name(extracted_url));
+            std::cout << sig_builder(extracted_url) << "\n\n";
         }
     }
     input_file.close();
