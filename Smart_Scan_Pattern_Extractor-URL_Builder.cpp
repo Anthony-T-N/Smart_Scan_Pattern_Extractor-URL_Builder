@@ -1,188 +1,129 @@
-#define CURL_STATICLIB
+// Smart_Scan_Pattern_Extractor-URL_Builder.cpp : This file contains the 'main' function. Program execution begins and ends there.
+//
+
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <stdio.h>
-#include <stdlib.h>
-#include <curl/curl.h>
-#include "version_2.h" 
-#include <filesystem>
 #include <chrono>
+#include <filesystem>
+#include "version_2.h"
 
-// https://stackoverflow.com/questions/21873048/getting-an-error-fopen-this-function-or-variable-may-be-unsafe-when-complin/21873153
-#pragma warning(disable:4996);
+static std::string first_section = "http://osce14-p.activeupdate.trendmicro.com/activeupdate/";
 
-std::string current_root_folder = ""; 
-
-static size_t write_data(void* ptr, size_t size, size_t nmemb, void* stream)
+std::string sig_builder(std::string extracted_string)
 {
-	size_t written = fwrite(ptr, size, nmemb, (FILE*)stream);
-	return written;
+    // Function uses: <string>
+    // Assumes extracted string has been processed by the url_builder(str) function.
+    extracted_string.erase(extracted_string.find_last_of(".") + 1);
+    return extracted_string + "sig";
 }
-
-// https://curl.se/libcurl/c/url2file.html
-int extract_serverini_file()
+std::string url_builder(std::string extracted_string)
 {
-    CURL* curl;
-    FILE* fp;
-    CURLcode res;
-    const char* url = "http://osce14-p.activeupdate.trendmicro.com/activeupdate/server.ini";
-    // Warning, there is an issue with the line below that has wasted 3 hours of my day. Work out the issue and never repeat again.
-    // char outfilename[FILENAME_MAX] = "C:\\Users\\Anthony\\source\\repos\\Smart_Scan_Pattern_Extractor - URL_Builder\\abc.txt";
-    
-    std::string inifile = std::filesystem::current_path().string() + "\\temp.ini";
-    char outfilename[FILENAME_MAX];
-    // https://stackoverflow.com/questions/41915130/initializing-an-array-of-characters-with-a-string-variable
-    strcpy(outfilename, inifile.c_str());
-    std::cout << outfilename << "\n";
-    curl = curl_easy_init();
-    if (curl)
-    {
-        fp = fopen(outfilename, "wb");
-        // curl_easy_setopt(curl, CURLOPT_DEBUGFUNCTION, debug_callback);
-        curl_easy_setopt(curl, CURLOPT_URL, url);
-        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
-        curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
-        curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
-        res = curl_easy_perform(curl);
-        if (res != CURLE_OK)
-        {
-            fprintf(stderr, "curl_easy_perform() failed: %s\n",
-                curl_easy_strerror(res));
-        }
-        curl_easy_cleanup(curl);
-        fclose(fp);
-    }
-    return 0;
+    // Function uses: <string>
+    extracted_string.erase(extracted_string.find_first_of(","));
+    extracted_string.erase(0, extracted_string.find_first_of("=") + 1);
+    std::string final_string = first_section + extracted_string;
+    return final_string;
 }
-
-void comment_server_section()
+std::string get_current_time()
 {
-    // Function must occur after function directories_structure().
-    std::ifstream input_file;
-    std::cout << "[!] Opening temp.ini for reading;" << "\n";
-    if (std::filesystem::exists("temp.ini") == false)
+    // Function uses: <chrono>
+    // === Requires better understanding here === 
+    // https://stackoverflow.com/questions/62226043/how-to-get-the-current-time-in-c-in-a-safe-way
+    auto start = std::chrono::system_clock::now();
+    auto legacyStart = std::chrono::system_clock::to_time_t(start);
+    char tmBuff[30];
+    ctime_s(tmBuff, sizeof(tmBuff), &legacyStart);
+    return tmBuff;
+}
+void handle_text_file()
+{
+    // Function uses: <iostream>, <fstream>, <string>
+
+    // https://stackoverflow.com/questions/13035674/how-to-read-line-by-line-or-a-whole-text-file-at-once
+    // ifstream vs ofstream
+    // ifstream represents input file stream.
+    std::ifstream URL_input_file;
+    std::cout << "[!] Opening toread.txt for reading;" << "\n";
+    if (std::filesystem::exists("toread.txt") == false)
     {
-        std::cout << "[-] Unable to open temp.ini;" << "\n";
+        std::cout << "[-] Unable to open toread.txt;" << "\n";
         return;
     }
-    input_file.open("temp.ini");
-    std::cout << "[+] Opened temp.ini successfully;" << "\n\n";
-
+    URL_input_file.open("toread.txt");
+    std::cout << "[+] Opened toread.txt successfully;" << "\n\n";
+    
+    // ofstream represents output fle stream.
+    std::cout << "[!] Creating output.txt;" << "\n";
     std::ofstream output_file;
-    output_file.open(current_root_folder + "/server.ini");
-    std::cout << "[+] Created server.ini successfully;" << "\n\n";
-
-    // Cannot edit individual lines of an existing text file. Edited copy will need to be made.
+    output_file.open("output.txt");
+    std::cout << "[+] Created output.txt successfully;" << "\n\n";
+    output_file << "Smart Scan Pattern(s) URLS Extracted on " << get_current_time() << "\n";
+    std::cout << get_current_time() << "\n";
     std::string input_file_line;
-    bool commenting_enabled = false;
-    while (std::getline(input_file, input_file_line))
+    while (std::getline(URL_input_file, input_file_line))
     {
-        if (input_file_line.find("[Server]") != std::string::npos)
+        //std::cout << str << "\n";
+        // std::string::npos = Not found
+        if (input_file_line.find("MergeCountEx") != std::string::npos)
         {
-            std::cout << "[+] [Server] Section Found;" << "\n";
-            std::cout << input_file_line << "\n\n";
-            commenting_enabled = true;
-            output_file << input_file_line << "\n";
+            std::cout << "[!] MergeCountEx Found;" << "\n\n";
             continue;
         }
-        // Continue to comment [Server] section until empty space is located.
-        if (commenting_enabled == true && input_file_line == "")
+        if (!(input_file_line.find("=") != std::string::npos && input_file_line.find(".") != std::string::npos))
         {
-            commenting_enabled = false;
+            std::cout << "[!] Invalid Link Found;" << "\n";
+            std::cout << input_file_line << "\n\n";
+            continue;
         }
-        if (commenting_enabled == true)
-        {
-            input_file_line = ";" + input_file_line;
-        }
-        output_file << input_file_line << "\n";
+        std::string extracted_string = url_builder(input_file_line);
+        std::cout << extracted_string << "\n";
+        output_file << extracted_string << "\n";
+        std::cout << sig_builder(extracted_string) << "\n\n";
+        output_file << sig_builder(extracted_string) << "\n\n";
     }
-    input_file.close();
     output_file.close();
+    URL_input_file.close();
 }
-
-void directories_structure()
+int main()
 {
-    // https://stackoverflow.com/questions/16357999/current-date-and-time-as-string/16358264
-    time_t rawtime;
-    struct tm* timeinfo;
-    char buffer[80];
-
-    time(&rawtime);
-    timeinfo = localtime(&rawtime);
-
-    strftime(buffer, sizeof(buffer), "%Y-%m-%d", timeinfo);
-    std::cout << buffer << "\n\n";
-
-    std::string root_folder_name(buffer);
-    std::filesystem::create_directories(root_folder_name + "/pattern/icrc");
-    current_root_folder = root_folder_name;
-}
-
-// https://stackoverflow.com/questions/6951161/downloading-multiple-files-with-libcurl-in-c
-void download_file(const char* url, const char* fname) 
-{
-    std::cout << "[!] Downloading: " << "\n";
-    std::cout << url << "\n";
-    std::cout << "To: " << "\n";
-    std::cout << fname << "\n";
-
-    CURL* curl;
-    FILE* fp;
-    CURLcode res;
-    curl = curl_easy_init();
-    if (curl) 
+    std::cout << "=======================================" << "\n";
+    std::cout << "- Welcome to the Smart_Scan_Pattern_Extractor-URL_Builder console application" << "\n";
+    std::cout << "- Console Application Version: 2.0" << "\n";
+    std::cout << "- Created By: Anthony N." << "\n";
+    // https://en.cppreference.com/w/cpp/filesystem/current_path
+    std::cout << "- Current location of executable: " << std::filesystem::current_path() << "\n";
+    std::cout << "=======================================" << "\n\n";
+    std::cout << "Prerequisites: 1) Smart Scan Patterns from Trend Micro have been copied to a ""toread.txt"" file in the same folder directory. Examples: Lines containing pattern/icrc/ioth_XXXXXXX" << "\n\n";
+    // TESTING AREA.
+    extract_serverini_file();
+    directories_structure();
+    comment_server_section();
+    icrc_pattern_identification();
+    return 0;
+    // END OF TESTING AREA.
+    if (std::filesystem::exists("output.txt") == true)
     {
-        fp = fopen(fname, "wb");
-        curl_easy_setopt(curl, CURLOPT_URL, url);
-        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
-        curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
-        res = curl_easy_perform(curl);
-        curl_easy_cleanup(curl);
-        fclose(fp);
-    }
-}
-
-std::string file_download_name(std::string url_name)
-{
-    url_name.erase(0, url_name.find_last_of("/") + 1);
-    std::cout << url_name << "\n\n";
-    return url_name;
-}
-
-void icrc_pattern_identification()
-{
-    // Read server.ini file.
-    std::ifstream input_file;
-    std::cout << "[!] Opening server.ini for reading;" << "\n";
-    if (std::filesystem::exists(current_root_folder + "/server.ini") == false)
-    {
-        std::cout << "[-] Unable to open server.ini;" << "\n";
-        return;
-    }
-    input_file.open(current_root_folder + "/server.ini");
-    std::string input_file_line;
-    while (std::getline(input_file, input_file_line))
-    {
-        if (input_file_line.find("icrc") != std::string::npos)
+        char recommence = '!';
+        while (recommence != 'n' || recommence != 'y')
         {
-            // Note: Function carried from main cpp file.
-            std::string extracted_url = url_builder(input_file_line);
-            std::string full_download_path = current_root_folder + "\\pattern\\icrc\\" + file_download_name(extracted_url);
-            std::cout << sig_builder(extracted_url) << "\n\n";
-            // https://stackoverflow.com/questions/9309961/how-to-convert-string-to-char-in-c
-            /*
-            * Question: Why can't these work ?
-            * // https://stackoverflow.com/questions/9219712/c-array-expression-must-have-a-constant-value
-            char* extracted_url_char = new char[extracted_url.length() + 1];
-            char* full_download_path_char = new char[full_download_path.length() + 1];
-            */
-            char extracted_url_char[FILENAME_MAX];
-            char full_download_path_char[FILENAME_MAX];
-            strcpy(extracted_url_char, extracted_url.c_str());
-            strcpy(full_download_path_char, full_download_path.c_str());
-            download_file(extracted_url_char, full_download_path_char);
+            std::cout << "[=] output.txt already exist. Continue ? [Y/N]" << "\n";
+            std::cin >> recommence;
+            recommence = tolower(recommence);
+            if (recommence == 'n')
+            {
+                return 0;
+            }
+            else if (recommence == 'y')
+            {
+                break;
+            }
         }
     }
-    input_file.close();
+    handle_text_file();
+    std::cout << "[!] END" << "\n";
+    std::cout << "[!] Exiting..." << "\n\n";
+    // "System("Pause") was added as the console application would exit immediately if "toread.txt" wasn't found.
+    system("pause");
+    return 0;
 }
