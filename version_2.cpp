@@ -115,18 +115,24 @@ void directories_structure()
     std::cout << buffer << "\n\n";
 
     std::string root_folder_name(buffer);
-    std::filesystem::create_directories(root_folder_name + "/update/pattern/icrc");
+    std::filesystem::create_directories(root_folder_name + "/pattern/icrc");
     current_root_folder = root_folder_name;
 }
 
 // https://stackoverflow.com/questions/6951161/downloading-multiple-files-with-libcurl-in-c
 void download_file(const char* url, const char* fname) 
 {
+    std::cout << "[!] Downloading: " << "\n";
+    std::cout << url << "\n";
+    std::cout << "To: " << "\n";
+    std::cout << fname << "\n";
+
     CURL* curl;
     FILE* fp;
     CURLcode res;
     curl = curl_easy_init();
-    if (curl) {
+    if (curl) 
+    {
         fp = fopen(fname, "wb");
         curl_easy_setopt(curl, CURLOPT_URL, url);
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
@@ -160,13 +166,22 @@ void icrc_pattern_identification()
     {
         if (input_file_line.find("icrc") != std::string::npos)
         {
-            std::cout << input_file_line << "\n\n";
             // Note: Function carried from main cpp file.
             std::string extracted_url = url_builder(input_file_line);
-            std::cout << extracted_url << "\n";
-            // https://stackoverflow.com/questions/9309961/how-to-convert-string-to-char-in-c
-            download_file(strcpy(extracted_url, , current_root_folder + "\\update\\pattern\\icrc\\" + file_download_name(extracted_url));
+            std::string full_download_path = current_root_folder + "\\pattern\\icrc\\" + file_download_name(extracted_url);
             std::cout << sig_builder(extracted_url) << "\n\n";
+            // https://stackoverflow.com/questions/9309961/how-to-convert-string-to-char-in-c
+            /*
+            * Question: Why can't these work ?
+            * // https://stackoverflow.com/questions/9219712/c-array-expression-must-have-a-constant-value
+            char* extracted_url_char = new char[extracted_url.length() + 1];
+            char* full_download_path_char = new char[full_download_path.length() + 1];
+            */
+            char extracted_url_char[FILENAME_MAX];
+            char full_download_path_char[FILENAME_MAX];
+            strcpy(extracted_url_char, extracted_url.c_str());
+            strcpy(full_download_path_char, full_download_path.c_str());
+            download_file(extracted_url_char, full_download_path_char);
         }
     }
     input_file.close();
