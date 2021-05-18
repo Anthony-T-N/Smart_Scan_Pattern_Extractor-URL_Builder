@@ -125,7 +125,7 @@ void download_file(const char* url, const char* fname)
     std::cout << "[!] Downloading: " << "\n";
     std::cout << url << "\n";
     std::cout << "To: " << "\n";
-    std::cout << fname << "\n";
+    std::cout << fname << "\n\n";
 
     CURL* curl;
     FILE* fp;
@@ -146,7 +146,6 @@ void download_file(const char* url, const char* fname)
 std::string file_download_name(std::string url_name)
 {
     url_name.erase(0, url_name.find_last_of("/") + 1);
-    std::cout << url_name << "\n\n";
     return url_name;
 }
 
@@ -169,7 +168,6 @@ void icrc_pattern_identification()
             // Note: Function carried from main cpp file.
             std::string extracted_url = url_builder(input_file_line);
             std::string full_download_path = current_root_folder + "\\pattern\\icrc\\" + file_download_name(extracted_url);
-            std::cout << sig_builder(extracted_url) << "\n\n";
             // https://stackoverflow.com/questions/9309961/how-to-convert-string-to-char-in-c
             /*
             * Question: Why can't these work ?
@@ -179,6 +177,15 @@ void icrc_pattern_identification()
             */
             char extracted_url_char[FILENAME_MAX];
             char full_download_path_char[FILENAME_MAX];
+
+            strcpy(extracted_url_char, extracted_url.c_str());
+            strcpy(full_download_path_char, full_download_path.c_str());
+            download_file(extracted_url_char, full_download_path_char);
+            
+            // Note: Function carried from main cpp file.
+            // Question: Reusing char arrays ?
+            extracted_url = sig_builder(extracted_url);
+            full_download_path = current_root_folder + "\\pattern\\icrc\\" + file_download_name(sig_builder(extracted_url));
             strcpy(extracted_url_char, extracted_url.c_str());
             strcpy(full_download_path_char, full_download_path.c_str());
             download_file(extracted_url_char, full_download_path_char);
