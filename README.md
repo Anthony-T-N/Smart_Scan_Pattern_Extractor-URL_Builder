@@ -8,11 +8,15 @@
 Overview
 -
 Console application used to assist with constructing URLs that are used to download "Smart Scan Patterns" from Trend Micro.
+Automates 90% of the manual steps as outlined at the following [link](https://success.trendmicro.com/solution/000243463-Performing-a-manual-pattern-update-for-an-OfficeScan-Apex-One-server).
 
 How It Works
 -
 Version 1
 
+- Reads from text file.
+- Processes text from text file line by line.
+- Outputs newly created and usable URLs to allows users to immediately begin downloading the smart patterns.
 
 Version 2
 
