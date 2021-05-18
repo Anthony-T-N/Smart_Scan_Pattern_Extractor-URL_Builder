@@ -89,19 +89,26 @@ int main()
 {
     std::cout << "=======================================" << "\n";
     std::cout << "- Welcome to the Smart_Scan_Pattern_Extractor-URL_Builder console application" << "\n";
-    std::cout << "- Console Application Version: 2.0" << "\n";
+    std::cout << "- Console Application Version: 2.0 (Testing)" << "\n";
     std::cout << "- Created By: Anthony N." << "\n";
     // https://en.cppreference.com/w/cpp/filesystem/current_path
     std::cout << "- Current location of executable: " << std::filesystem::current_path() << "\n";
     std::cout << "=======================================" << "\n\n";
-    std::cout << "Prerequisites: 1) Smart Scan Patterns from Trend Micro have been copied to a ""toread.txt"" file in the same folder directory. Examples: Lines containing pattern/icrc/ioth_XXXXXXX" << "\n\n";
-    // TESTING AREA.
+    // std::cout << "Prerequisites: 1) Smart Scan Patterns from Trend Micro have been copied to a ""toread.txt"" file in the same folder directory. Examples: Lines containing pattern/icrc/ioth_XXXXXXX" << "\n\n";
+    std::cout << "Password: ";
+    std::string weak_password = "test";
+    std::string current_password = "";
+    std::cin >> current_password;
+    if (current_password != weak_password)
+    {
+        std::cout << "[-] Wrong Password";
+        return 0;
+    }
     extract_serverini_file();
     directories_structure();
     comment_server_section();
     icrc_pattern_identification();
-    return 0;
-    // END OF TESTING AREA.
+    /*
     if (std::filesystem::exists("output.txt") == true)
     {
         char recommence = '!';
@@ -121,6 +128,7 @@ int main()
         }
     }
     handle_text_file();
+    */
     std::cout << "[!] END" << "\n";
     std::cout << "[!] Exiting..." << "\n\n";
     // "System("Pause") was added as the console application would exit immediately if "toread.txt" wasn't found.
