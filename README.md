@@ -5,18 +5,21 @@
 
 # Smart_Scan_Pattern_Extractor-URL_Builder
 
+[Draft]
+
 Overview
 -
-Console application used to assist with constructing URLs that are used to download "Smart Scan Patterns" from Trend Micro.
-Automates 90% of the manual steps as outlined at the following [link](https://success.trendmicro.com/solution/000243463-Performing-a-manual-pattern-update-for-an-OfficeScan-Apex-One-server).
+A console application used to assist with constructing URLs that are used to download "Smart Scan Patterns" from Trend Micro.
+Automates the manual steps 1 to 10 as outlined at the following [link](https://success.trendmicro.com/solution/000243463-Performing-a-manual-pattern-update-for-an-OfficeScan-Apex-One-server).
 
 How It Works
 -
 Version 1
 
-- Reads from text file.
-- Processes text from text file line by line.
-- Outputs newly created and usable URLs to allows users to immediately begin downloading the smart patterns.
+- Reads from text file containing the "smart pattern scan" section from the downloaded server.ini file.
+- Processes text from the file line by line.
+- Extracts the neccessary details from the lines and combines it with other details to create proper URLs.
+- Outputs newly created and usable URLs to a new text file to allows users to immediately begin downloading the smart patterns.
 
 Version 2
 
