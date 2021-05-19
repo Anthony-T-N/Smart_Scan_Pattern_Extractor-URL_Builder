@@ -99,6 +99,8 @@ void comment_server_section()
     }
     input_file.close();
     output_file.close();
+    remove("temp.ini");
+    std::cout << "[+] Deleted temp.ini successfully;" << "\n\n";
 }
 
 void directories_structure()
@@ -163,6 +165,7 @@ void icrc_pattern_identification()
     std::string input_file_line;
     while (std::getline(input_file, input_file_line))
     {
+        // Go through all lines in the "server.ini" file until line contains "icrc".
         if (input_file_line.find("icrc") != std::string::npos)
         {
             // Note: Function carried from main cpp file.
