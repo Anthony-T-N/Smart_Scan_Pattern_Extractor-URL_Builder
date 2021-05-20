@@ -27,7 +27,12 @@ Version 2
 
 Usage Overview
 -
+
 Version 1
 
+1) Create a new text file named "toread.txt". 
+2) Navigate to Trend Micro's official URL to open up the "server.ini" file and copy the section of text with lines that all contain "icrc".
+3) Paste the copied section to "toread.txt" and save/close the file.
+4) Run the Smart_Scan_Pattern_Extractor-URL_Builder executable.
 
 Version 2
