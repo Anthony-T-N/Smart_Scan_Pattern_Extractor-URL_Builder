@@ -76,12 +76,14 @@ void comment_server_section()
     // Cannot edit individual lines of an existing text file. Edited copy will need to be made.
     std::string input_file_line;
     bool commenting_enabled = false;
+    bool server_section_found = false;
     while (std::getline(input_file, input_file_line))
     {
         if (input_file_line.find("[Server]") != std::string::npos)
         {
             std::cout << "[+] [Server] Section Found;" << "\n";
             std::cout << input_file_line << "\n\n";
+            server_section_found = true;
             commenting_enabled = true;
             output_file << input_file_line << "\n";
             continue;
@@ -99,6 +101,11 @@ void comment_server_section()
     }
     input_file.close();
     output_file.close();
+    if (server_section_found == false)
+    {
+        std::cout << "[-] WARNING: [Server] Section Never Found;" << "\n";
+        std::cout << "[-] Proceed with caution;" << "\n";
+    }
     remove("temp.ini");
     std::cout << "[+] Deleted temp.ini successfully;" << "\n\n";
 }
@@ -178,6 +185,12 @@ void icrc_pattern_identification()
             char* extracted_url_char = new char[extracted_url.length() + 1];
             char* full_download_path_char = new char[full_download_path.length() + 1];
             */
+
+            /*
+            std::string string_a = "abc";
+            char* string_a_char[string_a.length() + 1];
+            */
+            
             char extracted_url_char[FILENAME_MAX];
             char full_download_path_char[FILENAME_MAX];
 
