@@ -16,7 +16,7 @@ How It Works
 -
 Version 1
 
-- Reads from "toread.txt" text file containing the "smart pattern scan" section from the downloaded server.ini file.
+- Reads from "toread.txt" text file containing the "Smart Scan Patterns" section from the downloaded server.ini file.
 - Processes text from the file line by line.
 - Extracts the neccessary details from the lines and combines it with other details to create proper URLs.
 - Outputs newly created and usable URLs to a new text file called "output.txt", allowing users to immediately begin downloading the smart patterns.
