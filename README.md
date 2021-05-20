@@ -9,8 +9,8 @@
 
 Overview
 -
-A console application used to assist with constructing URLs that are used to download "Smart Scan Patterns" from Trend Micro.
-Manually updating and applying "Smart Scan Patterns" from Trend Micro to physically isolated systems/servers remains a tedious and repetitive task. This console application aims to reduce headaches by automating the manual steps 1 to 10 as outlined at the following [link](https://success.trendmicro.com/solution/000243463-Performing-a-manual-pattern-update-for-an-OfficeScan-Apex-One-server).
+A console application used to assist users with constructing URLs that are used to download "Smart Scan Patterns" files from Trend Micro.
+Manually updating and applying "Smart Scan Patterns" from Trend Micro to physically isolated systems/servers remains a tedious and repetitive task. This console application aims to reduce that painful process by automating the manual steps 1 to 10 as outlined at the following [link](https://success.trendmicro.com/solution/000243463-Performing-a-manual-pattern-update-for-an-OfficeScan-Apex-One-server).
 
 How It Works
 -
