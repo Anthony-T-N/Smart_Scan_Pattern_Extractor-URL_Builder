@@ -23,7 +23,9 @@ Version 1
 
 Version 2
 
-
+- CURL
+- Download tempoary copy of server.ini, comments out [server] section.
+- Creates the directory location and folders. Renames root folder with current date.
 
 Usage Overview
 -
@@ -36,3 +38,5 @@ Version 1
 4) Run the Smart_Scan_Pattern_Extractor-URL_Builder executable.
 
 Version 2
+
+Nil (Automated)
