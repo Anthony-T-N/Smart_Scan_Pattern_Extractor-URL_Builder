@@ -20,12 +20,33 @@ static size_t write_data(void* ptr, size_t size, size_t nmemb, void* stream)
 	return written;
 }
 
-// https://curl.se/libcurl/c/url2file.html
-int extract_serverini_file()
+// https://stackoverflow.com/questions/6951161/downloading-multiple-files-with-libcurl-in-c
+void download_file(const char* url, const char* fname)
 {
+    std::cout << "[!] Downloading: " << "\n";
+    std::cout << url << "\n";
+    std::cout << "To: " << "\n";
+    std::cout << fname << "\n\n";
+
     CURL* curl;
     FILE* fp;
     CURLcode res;
+    curl = curl_easy_init();
+    if (curl)
+    {
+        fp = fopen(fname, "wb");
+        curl_easy_setopt(curl, CURLOPT_URL, url);
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
+        res = curl_easy_perform(curl);
+        curl_easy_cleanup(curl);
+        fclose(fp);
+    }
+}
+
+// https://curl.se/libcurl/c/url2file.html
+int extract_serverini_file()
+{
     const char* url = "http://osce14-p.activeupdate.trendmicro.com/activeupdate/server.ini";
     // Warning, there is an issue with the line below that has wasted 3 hours of my day. Work out the issue and never repeat again.
     // char outfilename[FILENAME_MAX] = "C:\\Users\\Anthony\\source\\repos\\Smart_Scan_Pattern_Extractor - URL_Builder\\abc.txt";
@@ -35,24 +56,7 @@ int extract_serverini_file()
     // https://stackoverflow.com/questions/41915130/initializing-an-array-of-characters-with-a-string-variable
     strcpy(outfilename, inifile.c_str());
     std::cout << outfilename << "\n";
-    curl = curl_easy_init();
-    if (curl)
-    {
-        fp = fopen(outfilename, "wb");
-        // curl_easy_setopt(curl, CURLOPT_DEBUGFUNCTION, debug_callback);
-        curl_easy_setopt(curl, CURLOPT_URL, url);
-        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
-        curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
-        curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
-        res = curl_easy_perform(curl);
-        if (res != CURLE_OK)
-        {
-            fprintf(stderr, "curl_easy_perform() failed: %s\n",
-                curl_easy_strerror(res));
-        }
-        curl_easy_cleanup(curl);
-        fclose(fp);
-    }
+    download_file(url, outfilename);
     return 0;
 }
 
@@ -126,30 +130,6 @@ void directories_structure()
     std::string root_folder_name(buffer);
     std::filesystem::create_directories(root_folder_name + "/pattern/icrc");
     current_root_folder = root_folder_name;
-}
-
-// https://stackoverflow.com/questions/6951161/downloading-multiple-files-with-libcurl-in-c
-void download_file(const char* url, const char* fname) 
-{
-    std::cout << "[!] Downloading: " << "\n";
-    std::cout << url << "\n";
-    std::cout << "To: " << "\n";
-    std::cout << fname << "\n\n";
-
-    CURL* curl;
-    FILE* fp;
-    CURLcode res;
-    curl = curl_easy_init();
-    if (curl) 
-    {
-        fp = fopen(fname, "wb");
-        curl_easy_setopt(curl, CURLOPT_URL, url);
-        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
-        curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
-        res = curl_easy_perform(curl);
-        curl_easy_cleanup(curl);
-        fclose(fp);
-    }
 }
 
 std::string file_download_name(std::string url_name)
