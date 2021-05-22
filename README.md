@@ -23,8 +23,8 @@ Version 1
 
 Version 2
 
-- CURL
-- Download tempoary copy of server.ini, comments out [server] section.
+- Employs [CURL](https://curl.se/) to download a temporary copy of "server.ini" called "temp.ini". 
+- A copy of "temp.ini" is made with the [Server] section commented out as instructed on step 10 in Trend Micro's [instructions](https://success.trendmicro.com/solution/000243463-Performing-a-manual-pattern-update-for-an-OfficeScan-Apex-One-server).
 - Creates the directory location and folders. Renames root folder with current date.
 
 Usage Overview
