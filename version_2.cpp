@@ -21,12 +21,12 @@ static size_t write_data(void* ptr, size_t size, size_t nmemb, void* stream)
 }
 
 // https://stackoverflow.com/questions/6951161/downloading-multiple-files-with-libcurl-in-c
-void download_file(const char* url, const char* fname)
+void download_file(const char* url, const char* full_pathname)
 {
     std::cout << "[!] Downloading: " << "\n";
     std::cout << url << "\n";
     std::cout << "To: " << "\n";
-    std::cout << fname << "\n\n";
+    std::cout << full_pathname << "\n\n";
 
     CURL* curl;
     FILE* fp;
@@ -34,19 +34,26 @@ void download_file(const char* url, const char* fname)
     curl = curl_easy_init();
     if (curl)
     {
-        fp = fopen(fname, "wb");
+        fp = fopen(full_pathname, "wb");
         curl_easy_setopt(curl, CURLOPT_URL, url);
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
         res = curl_easy_perform(curl);
         curl_easy_cleanup(curl);
+        if (res != CURLE_OK)
+        {
+            fprintf(stderr, "curl_easy_perform() failed: %s\n",
+                curl_easy_strerror(res));
+        }
         fclose(fp);
     }
 }
 
 // https://curl.se/libcurl/c/url2file.html
-int extract_serverini_file()
+void extract_serverini_file()
 {
+    // https://stackoverflow.com/questions/48759558/a-value-of-type-const-char-cannot-be-used-to-initialize-an-entity-of-type-ch/48759661
+    // Removing const = const char * cannot be used to initialize any entity of type char *.
     const char* url = "http://osce14-p.activeupdate.trendmicro.com/activeupdate/server.ini";
     // Warning, there is an issue with the line below that has wasted 3 hours of my day. Work out the issue and never repeat again.
     // char outfilename[FILENAME_MAX] = "C:\\Users\\Anthony\\source\\repos\\Smart_Scan_Pattern_Extractor - URL_Builder\\abc.txt";
@@ -57,7 +64,6 @@ int extract_serverini_file()
     strcpy(outfilename, inifile.c_str());
     std::cout << outfilename << "\n";
     download_file(url, outfilename);
-    return 0;
 }
 
 void comment_server_section()
@@ -152,7 +158,7 @@ void icrc_pattern_identification()
     std::string input_file_line;
     while (std::getline(input_file, input_file_line))
     {
-        // Go through all lines in the "server.ini" file until line contains "icrc".
+        // Go through all lines in the "server.ini" file until a line contains "icrc".
         if (input_file_line.find("icrc") != std::string::npos)
         {
             // Note: Function carried from main cpp file.
@@ -182,6 +188,7 @@ void icrc_pattern_identification()
             // Question: Reusing char arrays ?
             extracted_url = sig_builder(extracted_url);
             full_download_path = current_root_folder + "\\pattern\\icrc\\" + file_download_name(sig_builder(extracted_url));
+
             strcpy(extracted_url_char, extracted_url.c_str());
             strcpy(full_download_path_char, full_download_path.c_str());
             download_file(extracted_url_char, full_download_path_char);
