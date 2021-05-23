@@ -2,12 +2,11 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <stdio.h>
-#include <stdlib.h>
+//#include <stdio.h>
+//#include <stdlib.h>
 #include <curl/curl.h>
 #include "version_2.h" 
 #include <filesystem>
-#include <chrono>
 
 // https://stackoverflow.com/questions/21873048/getting-an-error-fopen-this-function-or-variable-may-be-unsafe-when-complin/21873153
 #pragma warning(disable:4996);
@@ -23,6 +22,8 @@ static size_t write_data(void* ptr, size_t size, size_t nmemb, void* stream)
 // https://stackoverflow.com/questions/6951161/downloading-multiple-files-with-libcurl-in-c
 void download_file(const char* url, const char* full_pathname)
 {
+    // Function uses: <iostream>
+
     std::cout << "[!] Downloading: " << "\n";
     std::cout << url << "\n";
     std::cout << "To: " << "\n";
@@ -52,6 +53,8 @@ void download_file(const char* url, const char* full_pathname)
 // https://curl.se/libcurl/c/url2file.html
 void extract_serverini_file()
 {
+    // Function uses: <iostream>, <string>, <filesystem>
+
     // https://stackoverflow.com/questions/48759558/a-value-of-type-const-char-cannot-be-used-to-initialize-an-entity-of-type-ch/48759661
     // Removing const = const char * cannot be used to initialize any entity of type char *.
     const char* url = "http://osce14-p.activeupdate.trendmicro.com/activeupdate/server.ini";
@@ -68,6 +71,8 @@ void extract_serverini_file()
 
 void comment_server_section()
 {
+    // Function uses: <iostream>, <fstream>, <string>, <filesystem>
+
     // Function must occur after function directories_structure().
     std::ifstream input_file;
     std::cout << "[!] Opening temp.ini for reading;" << "\n";
@@ -122,6 +127,8 @@ void comment_server_section()
 
 void directories_structure()
 {
+    // Function uses: <iostream>, <string>, <filesystem>
+
     // https://stackoverflow.com/questions/16357999/current-date-and-time-as-string/16358264
     time_t rawtime;
     struct tm* timeinfo;
@@ -146,6 +153,8 @@ std::string file_download_name(std::string url_name)
 
 void icrc_pattern_identification()
 {
+    // Function uses: <iostream>, <fstream>, <string>, <filesystem>
+
     // Read server.ini file.
     std::ifstream input_file;
     std::cout << "[!] Opening server.ini for reading;" << "\n";
