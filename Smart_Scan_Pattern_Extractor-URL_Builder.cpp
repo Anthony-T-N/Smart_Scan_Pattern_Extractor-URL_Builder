@@ -25,6 +25,8 @@ std::string url_builder(std::string extracted_string)
     std::string final_string = first_section + extracted_string;
     return final_string;
 }
+
+/*
 std::string get_current_time()
 {
     // Function uses: <chrono>
@@ -36,6 +38,9 @@ std::string get_current_time()
     ctime_s(tmBuff, sizeof(tmBuff), &legacyStart);
     return tmBuff;
 }
+*/
+
+/*
 void handle_text_file()
 {
     // Function uses: <iostream>, <fstream>, <string>
@@ -85,18 +90,19 @@ void handle_text_file()
     output_file.close();
     URL_input_file.close();
 }
+*/
 int main()
 {
     std::cout << "=======================================" << "\n";
     std::cout << "- Welcome to the Smart_Scan_Pattern_Extractor-URL_Builder console application" << "\n";
-    std::cout << "- Console Application Version: 2.0 (Testing)" << "\n";
+    std::cout << "- Console Application Version: 2.0" << "\n";
     std::cout << "- Created By: Anthony N." << "\n";
     // https://en.cppreference.com/w/cpp/filesystem/current_path
     std::cout << "- Current location of executable: " << std::filesystem::current_path() << "\n";
     std::cout << "=======================================" << "\n\n";
     // std::cout << "Prerequisites: 1) Smart Scan Patterns from Trend Micro have been copied to a ""toread.txt"" file in the same folder directory. Examples: Lines containing pattern/icrc/ioth_XXXXXXX" << "\n\n";
     std::cout << "Password: ";
-    std::string weak_password = "test";
+    std::string weak_password = "testonly";
     std::string current_password = "";
     std::cin >> current_password;
     if (current_password != weak_password)
@@ -109,6 +115,7 @@ int main()
     comment_server_section();
     icrc_pattern_identification();
     /*
+    * // Part of version 1
     if (std::filesystem::exists("output.txt") == true)
     {
         char recommence = '!';
