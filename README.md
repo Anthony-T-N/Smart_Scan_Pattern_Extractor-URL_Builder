@@ -39,5 +39,4 @@ Version 1
 
 Version 2
 
-Nil (Automated)
-Simply execute the application.
+Nil (Automated). Simply execute the application.
