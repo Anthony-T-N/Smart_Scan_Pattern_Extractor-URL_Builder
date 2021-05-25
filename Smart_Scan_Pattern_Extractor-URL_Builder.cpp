@@ -2,9 +2,10 @@
 //
 
 #include <iostream>
-#include <fstream>
 #include <string>
-#include <chrono>
+// Part of Version 1
+// #include <chrono>
+// #include <fstream>
 #include <filesystem>
 #include "version_2.h"
 
@@ -102,7 +103,7 @@ int main()
     std::cout << "=======================================" << "\n\n";
     // std::cout << "Prerequisites: 1) Smart Scan Patterns from Trend Micro have been copied to a ""toread.txt"" file in the same folder directory. Examples: Lines containing pattern/icrc/ioth_XXXXXXX" << "\n\n";
     std::cout << "Password: ";
-    std::string weak_password = "testonly";
+    std::string weak_password = "voidrightstosue";
     std::string current_password = "";
     std::cin >> current_password;
     if (current_password != weak_password)
@@ -110,6 +111,7 @@ int main()
         std::cout << "[-] Wrong Password";
         return 0;
     }
+    // Functions from version_2.cpp
     extract_serverini_file();
     directories_structure();
     comment_server_section();
