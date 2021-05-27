@@ -26,12 +26,15 @@ How It Works
 - Employs [CURL](https://curl.se/) to download a temporary copy of "server.ini" called "temp.ini". 
 - A copy of "temp.ini" is created with the [Server] section commented out as instructed on step 10 in Trend Micro's [instructions](https://success.trendmicro.com/solution/000243463-Performing-a-manual-pattern-update-for-an-OfficeScan-Apex-One-server).
 - Creates the directory location and folders. Renames root folder with current date (YYYY-MM-DD).
+- Reads every line of the "temp.ini" file to look out for any lines containing the phrase "icrc".
+- Employs [CURL](https://curl.se/) again to download and store them in the newly directory.
+- 
 
 Usage Overview
 -
 **Version 1**
 
-1) Create a new text file named "toread.txt" and ensure it is located in the same folder directory as the executable.
+1) Manually create a new text file named "toread.txt" and ensure it is located in the same folder directory as the executable.
 2) Navigate to Trend Micro's official URL to open up the "server.ini" file and copy the section of text with lines that all contain "icrc".
 3) Paste the copied section to "toread.txt" and save/close the file.
 4) Run the Smart_Scan_Pattern_Extractor-URL_Builder executable.
