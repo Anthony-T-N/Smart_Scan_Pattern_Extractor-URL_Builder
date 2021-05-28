@@ -29,8 +29,8 @@ How It Works
 - Reads every line of the "temp.ini" file to identify for any lines containing the phrase "icrc".
 - Once idenfitied
 Example:
--> P.48020000.Merge.1= | pattern/icrc/ioth_1674300.1674500 | ,1674300,2063
--> http://osce14-p.activeupdate.trendmicro.com/activeupdate/ + pattern/icrc/ioth_1674300.1674500
+1) -> P.48020000.Merge.1= | pattern/icrc/ioth_1674300.1674500 | ,1674300,2063
+2) -> http://osce14-p.activeupdate.trendmicro.com/activeupdate/ + pattern/icrc/ioth_1674300.1674500
 - Once a formal URL has been created. [CURL](https://curl.se/) is used again to access the URLs and stores the newly downloaded files to the previouly created directory.
 - 
 
