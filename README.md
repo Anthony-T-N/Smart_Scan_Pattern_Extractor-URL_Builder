@@ -27,13 +27,12 @@ How It Works
 - A copy of "temp.ini" is created with the [Server] section commented out as instructed on step 10 in Trend Micro's [instructions](https://success.trendmicro.com/solution/000243463-Performing-a-manual-pattern-update-for-an-OfficeScan-Apex-One-server).
 - Creates the necessary folders and renames root folder with current date (YYYY-MM-DD). Example of directory structure:
 YYYY-MM-DD\update\pattern\icrc
-- Reads every line of the "temp.ini" file to identify line containing "[Server]". All lines below are commented out (";" added before all lines). New file containing commented out lines outputted as "server.ini", with previous file "temp.ini" removed.
+- Reads every line of the "temp.ini" file to identify line containing "[Server]". All lines below (until empty space) are commented out (";" added before all lines). New file containing commented out lines outputted as "server.ini" and stored at YYYY-MM-DD\update, with previous file "temp.ini" removed.
 - Reads every line of the "server.ini" file to identify for any lines containing the phrase "icrc".
 - Once idenfitied, the line is stored as a string and spliced accordingly. Example:
-1) -> P.48020000.Merge.1= | pattern/icrc/ioth_1674300.1674500 | ,1674300,2063
+1) -> P.48020000.Merge.1= | **pattern/icrc/ioth_1674300.1674500** | ,1674300,2063
 2) -> http://osce14-p.activeupdate.trendmicro.com/activeupdate/ + pattern/icrc/ioth_1674300.1674500
-- Once a formal URL has been created. [CURL](https://curl.se/) is used again to access the URLs and stores the newly downloaded files to the previouly created directory.
-- 
+- Once a formal URL has been created. [CURL](https://curl.se/) is used again to access the URLs and stores the newly downloaded files (with appropriate names) at YYYY-MM-DD\update\pattern\icrc.
 
 Usage Overview
 -
