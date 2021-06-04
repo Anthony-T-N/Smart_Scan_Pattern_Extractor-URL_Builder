@@ -34,7 +34,7 @@ YYYY-MM-DD\update\pattern\icrc
 1) -> P.48020000.Merge.1= | **pattern/icrc/ioth_1674300.1674500** | ,1674300,2063
 2) -> http://osce14-p.activeupdate.trendmicro.com/activeupdate/ + pattern/icrc/ioth_1674300.1674500
 - Once a formal URL has been created. [CURL](https://curl.se/) is used again to access the URLs individually and stores the newly downloaded files (with appropriate names) at YYYY-MM-DD\update\pattern\icrc.
-- The URL is then modified where the extension is replaced with the "sig" to download the signature files of the previous downloaded files:
+- The URL is then modified where the extension is replaced with the "sig" extension to download the signature files of the previous downloaded files:
 1) -> http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ + ioth_1674300.~~1674500~~
 2) -> http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ + ioth_1674300.**sig**
 -
