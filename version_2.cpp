@@ -22,9 +22,9 @@ void download_file(const char* url, const char* full_pathname)
 {
     // Function uses: <iostream>
 
-    std::cout << "[!] Downloading: " << "\n";
+    std::cout << "[!] Downloading the following: " << "\n";
     std::cout << url << "\n";
-    std::cout << "To: " << "\n";
+    std::cout << "[!] Downloading to: " << "\n";
     std::cout << full_pathname << "\n\n";
 
     CURL* curl;
@@ -55,16 +55,17 @@ void extract_serverini_file()
 
     // https://stackoverflow.com/questions/48759558/a-value-of-type-const-char-cannot-be-used-to-initialize-an-entity-of-type-ch/48759661
     // Removing const = const char * cannot be used to initialize any entity of type char *.
-    const char* url = "http://osce14-p.activeupdate.trendmicro.com/activeupdate/server.ini";
+    const char* av_url = "http://osce14-p.activeupdate.trendmicro.com/activeupdate/server.ini";
     // Warning, there is an issue with the line below that has wasted 3 hours of my day. Work out the issue and never repeat again.
     // char outfilename[FILENAME_MAX] = "C:\\Users\\Anthony\\source\\repos\\Smart_Scan_Pattern_Extractor - URL_Builder\\abc.txt";
     
-    std::string inifile = std::filesystem::current_path().string() + "\\temp.ini";
-    char outfilename[FILENAME_MAX];
+    // Converting std::string to char for downloading purposes.
+    std::string temp_int_filepath = std::filesystem::current_path().string() + "\\temp.ini";
+    char temp_filename[FILENAME_MAX];
     // https://stackoverflow.com/questions/41915130/initializing-an-array-of-characters-with-a-string-variable
-    strcpy(outfilename, inifile.c_str());
-    std::cout << outfilename << "\n";
-    download_file(url, outfilename);
+    strcpy(temp_filename, temp_int_filepath.c_str());
+    std::cout << "[!] Temp filename/location: " << temp_filename << "\n\n";
+    download_file(av_url, temp_filename);
 }
 
 void comment_server_section()
@@ -116,7 +117,7 @@ void comment_server_section()
     output_file.close();
     if (server_section_found == false)
     {
-        std::cout << "[-] WARNING: [Server] Section Never Found;" << "\n";
+        std::cout << "[-] WARNING: [Server] Section was not found;" << "\n";
         std::cout << "[-] Proceed with caution;" << "\n";
     }
     remove("temp.ini");
@@ -136,7 +137,7 @@ void directories_structure()
     timeinfo = localtime(&rawtime);
 
     strftime(buffer, sizeof(buffer), "%Y-%m-%d", timeinfo);
-    std::cout << buffer << "\n\n";
+    std::cout << "[!] Root folder name: " << buffer << "\n\n";
 
     std::string root_folder_name(buffer);
     std::filesystem::create_directories(root_folder_name + "/pattern/icrc");
