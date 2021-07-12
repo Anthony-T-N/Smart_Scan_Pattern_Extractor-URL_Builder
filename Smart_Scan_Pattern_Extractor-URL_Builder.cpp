@@ -28,6 +28,7 @@ std::string url_builder(std::string extracted_string)
 }
 
 /*
+* // Part of version 1
 std::string get_current_time()
 {
     // Function uses: <chrono>
@@ -42,6 +43,7 @@ std::string get_current_time()
 */
 
 /*
+* // Part of version 1
 void handle_text_file()
 {
     // Function uses: <iostream>, <fstream>, <string>
