@@ -5,8 +5,6 @@
 
 # Smart_Scan_Pattern_Extractor-URL_Builder
 
-[Draft]
-
 Overview
 -
 A console application to assist users with constructing URLs that are used to download "Smart Scan Patterns" files from Trend Micro and applied to a Apex One server.
