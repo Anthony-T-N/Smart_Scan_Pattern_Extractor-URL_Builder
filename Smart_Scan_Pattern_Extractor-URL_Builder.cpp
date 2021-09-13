@@ -110,14 +110,16 @@ int main()
     std::cin >> current_password;
     if (current_password != weak_password)
     {
-        std::cout << "[-] Wrong Password";
-        return 0;
+        std::cout << "[-] Wrong Password" << "\n";
     }
-    // Functions from version_2.cpp
-    extract_serverini_file();
-    directories_structure();
-    comment_server_section();
-    icrc_pattern_identification();
+    else
+    {
+        // Functions from version_2.cpp
+        extract_serverini_file();
+        directories_structure();
+        comment_server_section();
+        icrc_pattern_identification();
+    }
     /*
     * // Part of version 1
     if (std::filesystem::exists("output.txt") == true)
