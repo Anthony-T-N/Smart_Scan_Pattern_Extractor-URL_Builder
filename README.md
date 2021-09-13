@@ -7,7 +7,7 @@
 
 Overview
 -
-A console application to assist system administrators and ICT/security engineers with constructing URLs which are used to download "Smart Scan Patterns" files from Trend Micro and applied to a Apex One server(s).
+A console application to assist system administrators and ICT/security engineers with constructing URLs which are used to download "Smart Scan Patterns" files from Trend Micro and to be applied to a Apex One server(s).
 Manually updating and applying "Smart Scan Patterns" from Trend Micro to physically isolated systems/servers remains a tedious and repetitive task. This console application aims to reduce that painful process by automating the manual steps 1 to 10 as outlined in the following [instructions](https://success.trendmicro.com/solution/000243463-Performing-a-manual-pattern-update-for-an-OfficeScan-Apex-One-server) (Using article last updated from 9 Apr 2021).
 
 How It Works
@@ -35,7 +35,7 @@ YYYY-MM-DD\update\pattern\icrc
 - The URL is then modified where the extension is replaced with the "sig" extension to download the signature files of the previous downloaded files:
 1) -> http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ + ioth_1674300.~~1674500~~
 2) -> http://osce14-p.activeupdate.trendmicro.com/activeupdate/pattern/icrc/ + ioth_1674300.**sig**
--
+- These newly formed URLs are also downloaded to the same directory.
 
 Usage Overview
 -
